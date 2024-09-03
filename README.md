@@ -8,11 +8,11 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 ## Approach of module and tech stack
-1. Use vite for better bundle performance.
+1. Use vite for Faster Development Server, Optimized Build, Native ES Modules, Out-of-the-Box Support, Better DX (Developer Experience)
 2. Use css modular approach Isolation, Encapsulation, Improved Maintainability, Avoiding Naming Conflicts
 3. Using Axios Straightforward API call.
 4. json-server Used JSONPlaceholder for rapid prototyping and testing of API interactions without the need to set up a back-end server.
-5. 
+5. Use debounce Utility for avoid unnessary api call for each key press.
 
 ## For Running the Project
 ```shell

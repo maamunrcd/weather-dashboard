@@ -1,62 +1,28 @@
-import { useState, useCallback, useEffect } from "react";
-import { getWeatherByCity } from "../services/weatherService";
-import { WeatherData } from "../types/weatherdata";
-
-const getRecentSearches = () => {
-  const searches = localStorage.getItem("recentSearches");
-  return searches ? JSON.parse(searches) : [];
-};
-
-const saveRecentSearches = (
-  searches: { city: string; weather: WeatherData }[]
-) => {
-  localStorage.setItem("recentSearches", JSON.stringify(searches));
-};
-
+import { useState, useCallback } from "react";
+import { getWeatherByCity, WeatherData } from "../services/weatherService";
 export const useWeather = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [recentSearches, setRecentSearches] = useState<
-    { city: string; weather: WeatherData }[]
-  >(getRecentSearches());
 
-  const handleSearch = useCallback(
-    async (city: string) => {
+  const fetchWeather = useCallback(
+    async (city: string): Promise<WeatherData | null> => {
       setLoading(true);
       setError(null);
       setWeather(null);
       try {
         const data = await getWeatherByCity(city);
         setWeather(data);
-        if (city !== "") {
-          const newSearches = [
-            { city, weather: data },
-            ...recentSearches.filter((search) => search.city !== city),
-          ];
-          setRecentSearches(newSearches);
-          saveRecentSearches(newSearches);
-        }
+        return data;
       } catch (err) {
         setError((err as Error).message);
+        return null;
       } finally {
         setLoading(false);
       }
     },
-    [recentSearches]
+    []
   );
 
-  useEffect(() => {
-    if (recentSearches.length > 0) {
-      handleSearch(recentSearches[0].city);
-    }
-  }, [handleSearch, recentSearches]);
-
-  return {
-    weather,
-    loading,
-    error,
-    recentSearches,
-    handleSearch,
-  };
+  return { weather, loading, error, fetchWeather };
 };

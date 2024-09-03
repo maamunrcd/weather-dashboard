@@ -1,8 +1,4 @@
-import { WeatherData } from "../../services/weatherService";
-
-const saveRecentSearches = (
-  searches: { city: string; weather: WeatherData }[]
-) => {
+const saveRecentSearches = (searches: { city: string }[]) => {
   localStorage.setItem("recentSearches", JSON.stringify(searches));
 };
 

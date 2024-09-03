@@ -1,57 +1,24 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { Layout, Typography, List } from "antd";
 import SearchBar from "./components/SearchBar/SearchBar";
-import { getWeatherByCity, WeatherData } from "./services/weatherService";
-import styles from "./App.module.scss";
 import WeatherDisplay from "./components/WeatherDisplay/WeatherDisplay";
-
-const getRecentSearches = () => {
-  const searches = localStorage.getItem("recentSearches");
-  return searches ? JSON.parse(searches) : [];
-};
-
-const saveRecentSearches = (
-  searches: { city: string; weather: WeatherData }[]
-) => {
-  localStorage.setItem("recentSearches", JSON.stringify(searches));
-};
+import { useWeather } from "./hooks/useWeather";
+import { useRecentSearches } from "./hooks/useRecentSearches";
+import styles from "./App.module.scss";
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
 
 const App: React.FC = () => {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const { weather, loading, error, fetchWeather } = useWeather();
+  const { recentSearches, addSearch } = useRecentSearches();
 
-  const [recentSearches, setRecentSearches] = useState<
-    { city: string; weather: WeatherData }[]
-  >(getRecentSearches());
-
-  const handleSearch = useCallback(
-    async (city: string) => {
-      setLoading(true);
-      setError(null);
-      setWeather(null);
-      try {
-        const data = await getWeatherByCity(city);
-        setWeather(data);
-        if (city !== "") {
-          const newSearches = [
-            { city, weather: data },
-            ...recentSearches.filter((search) => search.city !== city),
-          ];
-          setRecentSearches(newSearches);
-          saveRecentSearches(newSearches);
-        }
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [recentSearches]
-  );
+  const handleSearch = async (city: string) => {
+    const fetchedWeather = await fetchWeather(city);
+    if (city && fetchedWeather) {
+      addSearch(city);
+    }
+  };
 
   useEffect(() => {
     if (recentSearches.length > 0) {

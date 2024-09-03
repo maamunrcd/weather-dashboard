@@ -4,7 +4,7 @@ import { List, Typography } from "antd";
 const { Title } = Typography;
 
 interface RecentSearchesProps {
-  recentSearches: { city: string; weather: any }[];
+  recentSearches: { city: string }[];
   onSearch: (city: string) => void;
 }
 
