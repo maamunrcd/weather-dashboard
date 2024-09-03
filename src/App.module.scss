@@ -1,0 +1,23 @@
+@import "./styles/variables.scss";
+.layout {
+  min-height: 100vh;
+}
+
+.title {
+  color: #fff;
+  text-align: center;
+  line-height: 64px;
+  margin: 0;
+}
+.header {
+  background: #d5e6fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  padding: 50px;
+  background-color: $secondary-color;
+  flex: 1;
+}

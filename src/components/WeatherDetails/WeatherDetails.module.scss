@@ -1,0 +1,27 @@
+.card {
+  max-width: 100%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.alert {
+  max-width: 400px;
+  margin: 20px auto;
+}
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+}
+.item {
+  flex: 1 1 calc(25% - 30px);
+  margin: 15px;
+  box-sizing: border-box;
+}
