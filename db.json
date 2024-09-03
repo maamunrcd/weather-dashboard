@@ -62,6 +62,8 @@
     { "city": "christchurch", "temperature": 17, "conditions": "Cloudy", "humidity": 80, "windSpeed": 9 },
     { "city": "edinburgh", "temperature": 13, "conditions": "Rainy", "humidity": 85, "windSpeed": 12 },
     { "city": "glasgow", "temperature": 14, "conditions": "Cloudy", "humidity": 80, "windSpeed": 13 },
-    { "city": "belfast", "temperature": 15, "conditions": "Partly Cloudy", "humidity": 75, "windSpeed": 11 }
+    { "city": "belfast", "temperature": 15, "conditions": "Partly Cloudy", "humidity": 75, "windSpeed": 11 },
+    { "city": "dhaka", "temperature": 32, "conditions": "Sunny", "humidity": 79, "windSpeed": 18 },
+    { "city": "rajshahi", "temperature": 35, "conditions": "Cloudy", "humidity": 85, "windSpeed": 18 }
 ]
 }

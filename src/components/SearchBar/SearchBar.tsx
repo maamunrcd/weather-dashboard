@@ -19,7 +19,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     debounce((value: string) => {
       onSearch(value.trim());
     }, 300),
-    [onSearch]
+    []
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
