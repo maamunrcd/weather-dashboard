@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Layout, Typography, List } from "antd";
+import { Layout, Typography } from "antd";
 import SearchBar from "./components/SearchBar/SearchBar";
 import WeatherDisplay from "./components/WeatherDisplay/WeatherDisplay";
 import { useWeather } from "./hooks/useWeather";
 import { useRecentSearches } from "./hooks/useRecentSearches";
 import styles from "./App.module.scss";
+import RecentSearches from "./components/RecentSearches/RecentSearches";
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
@@ -22,7 +23,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (recentSearches.length > 0) {
-      handleSearch(recentSearches[0].city);
+      handleSearch(recentSearches[0]);
     }
   }, []);
 
@@ -36,18 +37,10 @@ const App: React.FC = () => {
       <Content className={styles.content}>
         <SearchBar onSearch={handleSearch} />
         <WeatherDisplay data={weather} loading={loading} error={error} />
-        <div className={styles.recentSearches}>
-          <Title level={3}>Recent Searches</Title>
-          <List
-            bordered
-            dataSource={recentSearches}
-            renderItem={(item) => (
-              <List.Item onClick={() => handleSearch(item.city)}>
-                {item.city}
-              </List.Item>
-            )}
-          />
-        </div>
+        <RecentSearches
+          recentSearches={recentSearches}
+          handleSearch={handleSearch}
+        />
       </Content>
       <Footer style={{ textAlign: "center" }}>© 2024 Weather Dashboard</Footer>
     </Layout>

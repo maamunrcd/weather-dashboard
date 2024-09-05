@@ -5,22 +5,19 @@ const getRecentSearches = () => {
   return searches ? JSON.parse(searches) : [];
 };
 
-const saveRecentSearches = (searches: { city: string }[]) => {
+const saveRecentSearches = (searches: string[]) => {
   localStorage.setItem("recentSearches", JSON.stringify(searches));
 };
 
 export const useRecentSearches = () => {
-  const [recentSearches, setRecentSearches] = useState<{ city: string }[]>(
+  const [recentSearches, setRecentSearches] = useState<string[]>(
     getRecentSearches()
   );
 
   const addSearch = (city: string) => {
-    const newSearches = [
-      { city },
-      ...recentSearches.filter((search) => search.city !== city),
-    ];
-    setRecentSearches(newSearches);
-    saveRecentSearches(newSearches);
+    const searchedCity = new Set([...getRecentSearches(), city]);
+    setRecentSearches([...searchedCity]);
+    saveRecentSearches([...searchedCity]);
   };
 
   return { recentSearches, addSearch };

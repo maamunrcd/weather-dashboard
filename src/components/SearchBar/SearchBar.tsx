@@ -1,16 +1,12 @@
 // src/components/SearchBar/SearchBar.tsx
 
 import React, { useState, useCallback } from "react";
-import { Input, Button } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import { debounce } from "../../utils/debounce"; // Import your custom debounce function
-import styles from "./SearchBar.module.scss";
+import { Input } from "antd";
+import { debounce } from "../../utils/debounce";
 
 interface SearchBarProps {
   onSearch: (city: string) => void;
 }
-
-const { Search } = Input;
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [city, setCity] = useState<string>("");
@@ -36,24 +32,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className={styles.searchBar}>
-      <Search
-        placeholder="Enter city name"
-        value={city}
-        onChange={handleChange}
-        onPressEnter={handleSearch}
-        enterButton={
-          <Button
-            type="primary"
-            icon={<SearchOutlined />}
-            onClick={handleSearch}
-          >
-            Search
-          </Button>
-        }
-        size="large"
-      />
-    </div>
+    <Input
+      placeholder="Enter city name"
+      value={city}
+      onChange={handleChange}
+      onPressEnter={handleSearch}
+      size="large"
+    />
   );
 };
 
